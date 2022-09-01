@@ -1,0 +1,21 @@
+<table class = "table table-strip table-hover">
+
+    <thead>
+        <th>Symbol</th>
+        <th>Shares</th>
+        <th>Total</th>
+        <th>Average Purchase Price</th>
+        <th>Current Price</th>
+        <th>Gains</th>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let stock of userStocks|async">
+            <td>{{stock.ticker}}</td>
+            <td>{{stock.quantity}}</td>
+            <td>{{stock.total | number: '1.0-0'}}</td>
+            <td>{{stock.total/stock.quantity | number: '1.0-0'}}</td>
+            <td>{{stock.price}}</td>
+            <td>{{stock.price*stock.quantity - stock.total | number: '1.0-0'}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,13 @@
+table, th, td {
+    border: 1px solid;
+    text-align: center;
+  }
+
+  td{
+    text-align: center;
+  }
+  th {
+    background-color: #04AA6D;
+    color: white;
+  }
+  tr:nth-child(odd) {background-color: #f2f2f2;}

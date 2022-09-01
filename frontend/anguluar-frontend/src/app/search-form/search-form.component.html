@@ -1,0 +1,13 @@
+<form #searchForm = "ngForm" (ngSubmit) = "searchStock(searchForm.value.ticker)">
+    <input name = "ticker" class="formControl" [(ngModel)] = "ticker">
+    <button class = "btn btn-primary" type = "submit" [disabled]="!ticker">Search</button>
+    
+</form>
+    <div *ngIf ="ticker">
+        <div *ngIf = "currentPrice | async as price;else not_valid">
+            <ng-template>{{price}}</ng-template>
+        </div>
+        
+
+        <ng-template #not_valid>{{err}}</ng-template>
+    </div>

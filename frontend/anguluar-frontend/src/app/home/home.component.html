@@ -1,0 +1,8 @@
+<div *ngIf = "user;else sign_in_button">
+    <app-dashboard></app-dashboard>
+</div>
+<ng-template #sign_in_button>
+    <button class = "btn btn-primary" (click) = signIn() >Sign In</button>
+</ng-template>
+
+

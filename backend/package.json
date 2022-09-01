@@ -1,0 +1,43 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "devStart": "set NODE_ENV=dev&& nodemon server.js",
+    "build": "npm run build",
+    "start": "node server.js",
+    "balanceCron": "set BALANCE_CRON=true&& npm install && node server.js",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.19.2",
+    "connect-mongo": "^4.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "googleapis": "^39.2.0",
+    "mongodb": "^4.6.0",
+    "mongoose": "^6.2.9",
+    "morgan": "^1.10.0",
+    "node-cron": "^3.0.0",
+    "nodemailer": "^6.7.5",
+    "passport": "^0.5.2",
+    "passport-google-oauth20": "^2.0.0",
+    "xoauth2": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "cross-env": "^7.0.3",
+    "jest": "^28.1.0",
+    "nodemon": "^2.0.15",
+    "superagent": "^7.1.3",
+    "supertest": "^6.2.3"
+  }
+}
