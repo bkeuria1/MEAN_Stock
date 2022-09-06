@@ -70,5 +70,18 @@ router.delete('/delete',ensureAuth,async(req,res)=>{
 
 
 })
+router.get('/ownsStock',ensureAuth,async (req,res)=>{
+    try{
+        const ticker = req.query.ticker
+        console.log(ticker)
+        const userStocks = await Stock.findOne({'user':req.user, 'ticker': ticker}, {"_id":0,"ticker":1})
+        if(userStocks){
+            return res.send(true).status(200)
+        }
+        return res.send(false).status(200)
+    }catch(err){
+        res.send(err).status(400)
+    }
+})
 
 module.exports = router

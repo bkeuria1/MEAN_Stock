@@ -3,11 +3,19 @@
     <button class = "btn btn-primary" type = "submit" [disabled]="!ticker">Search</button>
     
 </form>
-    <div *ngIf ="ticker">
-        <div *ngIf = "currentPrice | async as price;else not_valid">
-            <ng-template>{{price}}</ng-template>
+    <div *ngIf ="finalTicker">
+        <div *ngIf = "currentPrice | async as price;else not_valid" class = "card">
+            <div class = "row card-body">
+                <div class = "col-md-8">
+                    <app-chart [ticker] = "finalTicker" [currentPrice] = "price"></app-chart>
+                </div>    
+                <div class = "col-md-4">
+                    <app-buy-sell-form  [currentPrice] = "price"></app-buy-sell-form>
+                </div>
+            </div>
+           
         </div>
         
 
-        <ng-template #not_valid>{{err}}</ng-template>
+        <ng-template #not_valid>No data found for ticker {{finalTicker}}</ng-template>
     </div>

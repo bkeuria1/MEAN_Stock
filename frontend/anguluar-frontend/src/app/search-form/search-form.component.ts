@@ -10,13 +10,14 @@ import { Observable } from 'rxjs';
 export class SearchFormComponent implements OnInit {
   currentPrice!:Observable<Number>
   ticker:string=''
+  finalTicker!:string
   err:any = ''
   constructor(private stockService: StockServiceService) { }
 
   ngOnInit(): void {
   }
   searchStock(ticker:string){
-    console.log(ticker)
+    this.finalTicker = ticker
     try{
       this.currentPrice = this.stockService.getCurrentStockPrice(ticker)
     }catch(err:any){

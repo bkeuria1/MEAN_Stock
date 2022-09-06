@@ -33,6 +33,5 @@ interface DayData{
     high:number
 }
 export interface ChartData{
-    date:Date
-    dayData: DayData
+  [key: string]:DayData
 } 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 
 @Component({
   selector: 'app-buy-sell-form',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./buy-sell-form.component.css']
 })
 export class BuySellFormComponent implements OnInit {
-
+  @Input()
+  currentPrice!:Number
   constructor() { }
 
   ngOnInit(): void {
