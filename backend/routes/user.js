@@ -68,7 +68,6 @@ router.delete('/delete',ensureAuth,async(req,res)=>{
         console.log(err)
     }
 
-
 })
 router.get('/ownsStock',ensureAuth,async (req,res)=>{
     try{
