@@ -1,4 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { StockServiceService } from '../services/stock-service.service';
 
 @Component({
   selector: 'app-buy-sell-form',
@@ -7,10 +9,20 @@ import { Component, OnInit,Input } from '@angular/core';
 })
 export class BuySellFormComponent implements OnInit {
   @Input()
-  currentPrice!:Number
-  constructor() { }
+  currentPrice!:number
+  @Input()
+  ticker!:string
+  shares:number =0
+  ownsStock?:boolean
+  constructor(private stockService:StockServiceService) { }
 
   ngOnInit(): void {
+    this.checkOwnernShip()
   }
-
+  checkOwnernShip(){
+    this.stockService.ownsStock(this.ticker).subscribe(result=>{
+      this.ownsStock = result
+    })
+  }
 }
+

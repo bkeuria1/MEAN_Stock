@@ -18,7 +18,8 @@ export const environment = {
   SELL_URL :"http://localhost:3001/sale/sell",
   BUY_URL :"http://localhost:3001/sale/buy",
   MAIL_URL :"http://localhost:3001/mail/sale",
-  USER_URL:"http://localhost:3001/user/current"
+  USER_URL:"http://localhost:3001/user/current",
+  OWNS_STOCK_URL: "http://localhost:3001/user/ownsStock"
 };
 
 /*

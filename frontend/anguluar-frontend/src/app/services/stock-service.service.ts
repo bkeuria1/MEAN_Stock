@@ -17,11 +17,14 @@ export class StockServiceService {
   getStockSuggestion():Observable<Suggestion[]>{
     return this.http.get<Suggestion[]>(environment.AUTOCOMPLETE_URL, {withCredentials:true})
   }
-  getCurrentStockPrice(ticker:string):Observable<Number>{
-    return this.http.get(`${environment.REALTIME_URL}?stock=${ticker}`,{withCredentials:true}) as Observable<Number>
+  getCurrentStockPrice(ticker:string):Observable<number>{
+    return this.http.get(`${environment.REALTIME_URL}?stock=${ticker}`,{withCredentials:true}) as Observable<number>
   }
 
   getChartData(ticker:string, timeFrame:string):Observable<ChartData>{
     return this.http.get(`${environment.CHART_URL}?stock=${ticker}&timeFrame=${timeFrame}`,{withCredentials:true}) as Observable<ChartData>
+  }
+  ownsStock(ticker:String):Observable<boolean>{
+    return this.http.get(`${environment.OWNS_STOCK_URL}?ticker=${ticker}`,{withCredentials:true}) as Observable<boolean>
   }
 }

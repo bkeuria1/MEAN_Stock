@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./search-form.component.css']
 })
 export class SearchFormComponent implements OnInit {
-  currentPrice!:Observable<Number>
+  currentPrice!:Observable<number>
   ticker:string=''
   finalTicker!:string
   err:any = ''

@@ -19,7 +19,8 @@ export class ChartComponent implements OnInit {
   constructor(private stockService: StockServiceService) { }
 
   ngOnInit(): void {
-   this.currentPrice = Math.random()
+    this.generateChart(this.timeFrame)
+
   }
   getChartData(){
     return this.stockService.getChartData(this.ticker,this.timeFrame)
@@ -45,6 +46,7 @@ export class ChartComponent implements OnInit {
   }
   generateChart(newTime:string){
     this.timeFrame = newTime
+    console.log(this.timeFrame)
     console.log("change")
     this.getChartData().subscribe(result=>{
       this.chartData = Object.keys(result).sort().reduce(
