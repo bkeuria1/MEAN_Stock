@@ -1,9 +1,13 @@
 <div class = "card" >
     <div class = "card-body">
-        <h1>{{ticker}}</h1>
+        <h1>{{ticker | uppercase}}</h1>
+        <pre>{{currentPrice | async}}</pre>
+        <div *ngIf = "currentPrice | async as price">
 
-        <p>Current Price {{currentPrice}}</p>
-        <select class="form-select"  [ngModel]="timeFrame" (ngModelChange)="generateChart($event)">
+            <p>{{price}}</p>
+            <app-buy-sell-form [ticker]="ticker" [currentPrice]="price"></app-buy-sell-form>
+        </div>
+        <select class="form-select"  [(ngModel)]="timeFrame" (ngModelChange)="generateChart(ticker,timeFrame)">
             <option selected value = "1D">1D</option>
             <option value="5D">5D</option>
             <option value="1M">1M</option>

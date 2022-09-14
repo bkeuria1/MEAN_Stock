@@ -18,6 +18,7 @@ export class BuySellFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkOwnernShip()
+    console.log(this.currentPrice)
   }
   checkOwnernShip(){
     this.stockService.ownsStock(this.ticker).subscribe(result=>{

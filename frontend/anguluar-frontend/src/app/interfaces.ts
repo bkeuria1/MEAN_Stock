@@ -23,8 +23,8 @@ export interface Stock{
     date: Date
 }
 export interface Suggestion{
-    ticker:String
-    company: String
+    Name:string
+    Symbol: string
 }
 interface DayData{
     close:number
@@ -35,3 +35,7 @@ interface DayData{
 export interface ChartData{
   [key: string]:DayData
 } 
+export interface UserBalance{
+    date:Date
+    balance:number
+}

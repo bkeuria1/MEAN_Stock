@@ -1,21 +1,21 @@
-<form #searchForm = "ngForm" (ngSubmit) = "searchStock(searchForm.value.ticker)">
-    <input name = "ticker" class="formControl" [(ngModel)] = "ticker">
+<form #searchForm = "ngForm" (ngSubmit) = "searchStock(searchForm.value.ticker)"  class = "d-flex justify-content-center">
+    <input name = "ticker" class="formControl" [(ngModel)] = "ticker" (ngModelChange) = "getSuggestions(ticker)">
     <button class = "btn btn-primary" type = "submit" [disabled]="!ticker">Search</button>
     
 </form>
-    <div *ngIf ="finalTicker">
-        <div *ngIf = "currentPrice | async as price;else not_valid" class = "card">
-            <div class = "row card-body">
-                <div class = "col-md-7">
-                    <app-chart [ticker] = "finalTicker" [currentPrice] = "price"></app-chart>
-                </div>    
-                <div class = "col-md-5">
-                    <app-buy-sell-form  [ticker] = "ticker" [currentPrice] = "price"></app-buy-sell-form>
-                </div>
-            </div>
-           
-        </div>
-        
+<div *ngFor = "let suggestion of suggestions | async">
+    <div class = "card" (click) = "finalTicker = suggestion.Symbol">
+        <p>{{suggestion.Name}}-{{suggestion.Symbol}}</p>
+    </div>
 
+</div>
+<app-chart [ticker] = "finalTicker"></app-chart>
+    <div *ngIf ="finalTicker">
+        <div class = "row card-body">
+            <div>
+                <!-- <app-buy-sell-form  [ticker] = "finalTicker" [currentPrice] = "price"></app-buy-sell-form> -->
+                
+            </div>    
+        </div>   
         <ng-template #not_valid>No data found for ticker {{finalTicker}}</ng-template>
     </div>

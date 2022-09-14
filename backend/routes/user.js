@@ -50,7 +50,28 @@ router.get('/reset',ensureAuth,async(req,res)=>{
 router.get('/balance',ensureAuth,async(req,res)=>{
     try{
         const balance = req.user.balance
-        return res.send(balance)
+        let timeFrame = req.query.timeFrame
+        switch(timeFrame){
+            case('1D'):
+                timeFrame = -1
+                break
+            case('5D'):
+                timeFrame = -5
+                break;
+            case('1M'):
+                timeFrame = -30
+                break;
+            case('3M'):
+                timeFrame = -90
+                break
+            case('1Y'):
+                timeFrame = -365
+                break;
+            default:
+                timeFrame = 0
+        }
+        
+        return res.send(balance.slice(timeFrame))
     }catch(err){
         console.log("There is an error caught in the endpoint")
         console.log(err)

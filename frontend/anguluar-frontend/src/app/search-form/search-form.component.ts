@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StockServiceService } from '../services/stock-service.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { Suggestion } from '../interfaces';
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
@@ -10,8 +11,9 @@ import { Observable } from 'rxjs';
 export class SearchFormComponent implements OnInit {
   currentPrice!:Observable<number>
   ticker:string=''
-  finalTicker!:string
-  err:any = ''
+  finalTicker:string = ''
+  suggestions?:Observable<Array<Suggestion>>
+
   constructor(private stockService: StockServiceService) { }
 
   ngOnInit(): void {
@@ -21,8 +23,13 @@ export class SearchFormComponent implements OnInit {
     try{
       this.currentPrice = this.stockService.getCurrentStockPrice(ticker)
     }catch(err:any){
-      this.err = err
+      console.log(err)
     }
+  }
+  getSuggestions(query:string){
+    this.suggestions = this.stockService.getStockSuggestion(query)
+    console.log("Get suggestions called")
+  
   }
  
 

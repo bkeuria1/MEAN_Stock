@@ -1,5 +1,4 @@
 <form #sharesForm = "ngForm">
-    <pre>{{ownsStock}}</pre>
     <input type="number" min="0" name="shares" class="formControl" [(ngModel)] = "shares">
     <button class = "btn btn-primary">Buy</button>
     <button class = "btn btn-danger" [disabled]="!ownsStock">Sell</button>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpParams } from '@angular/common/http';
 import { Observable,of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ChartData, Stock, Suggestion } from '../interfaces';
+import { ChartData, Stock, Suggestion, UserBalance } from '../interfaces';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,8 +14,8 @@ export class StockServiceService {
     
     return this.http.get(environment.USERSTOCK_URL,{withCredentials:true}) as Observable<Array<Stock>>
   }
-  getStockSuggestion():Observable<Suggestion[]>{
-    return this.http.get<Suggestion[]>(environment.AUTOCOMPLETE_URL, {withCredentials:true})
+  getStockSuggestion(query:string):Observable<Array<Suggestion>>{
+    return this.http.get(`${environment.AUTOCOMPLETE_URL}?query=${query}`, {withCredentials:true}) as Observable<Array<Suggestion>>
   }
   getCurrentStockPrice(ticker:string):Observable<number>{
     return this.http.get(`${environment.REALTIME_URL}?stock=${ticker}`,{withCredentials:true}) as Observable<number>
@@ -26,5 +26,8 @@ export class StockServiceService {
   }
   ownsStock(ticker:String):Observable<boolean>{
     return this.http.get(`${environment.OWNS_STOCK_URL}?ticker=${ticker}`,{withCredentials:true}) as Observable<boolean>
+  }
+  getUserBalance(timeFrame:string){
+    return this.http.get(`${environment.BALANCE_URL}?timeFrame=${timeFrame}`,{withCredentials:true}) as Observable<Array<UserBalance>>
   }
 }

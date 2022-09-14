@@ -10,6 +10,7 @@ import { BuySellFormComponent } from './buy-sell-form/buy-sell-form.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { FormsModule } from '@angular/forms';
 import { ChartComponent } from './chart/chart.component';
+import { BalanceInfoComponent } from './balance-info/balance-info.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ChartComponent } from './chart/chart.component';
     StockTableComponent,
     BuySellFormComponent,
     SearchFormComponent,
-    ChartComponent
+    ChartComponent,
+    BalanceInfoComponent
   ],
   imports: [
     BrowserModule,
