@@ -9,7 +9,7 @@
         <th>Gains</th>
     </thead>
     <tbody>
-        <tr *ngFor = "let stock of userStocks|async">
+        <tr (click)="setStock(stock.ticker)" *ngFor = "let stock of userStocks?.table">
             <td>{{stock.ticker}}</td>
             <td>{{stock.quantity}}</td>
             <td>{{stock.total | number: '1.0-0'}}</td>

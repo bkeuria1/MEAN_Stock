@@ -50,10 +50,15 @@ router.get('/userStocks', ensureAuth, async (req,res)=>{
         const tickerString = userStocks.reduce((prev,currentStock)=>prev+currentStock.ticker+",", "")
         const response = await axios.get(`https://alpha.financeapi.net/market/get-realtime-prices?symbols=${tickerString}`, options)
         const currentPrices = response.data.data
+        let totalAssets = 0
         stockWithPrices.forEach((stock,index)=>{
-            stock.price = currentPrices[index].attributes.last
+            let shares = stock.quantity
+            let currentPrice = currentPrices[index].attributes.last
+            totalAssets += shares*currentPrice
+            stock.price = currentPrice
         })
-        res.send(stockWithPrices)
+        let currentBalance = totalAssets + req.user.buyingPower
+        res.send({table: stockWithPrices, totalAssets: totalAssets, currentBalance: currentBalance})
     }catch(err){
         res.send(err).status(400)
 

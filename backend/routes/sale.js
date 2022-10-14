@@ -11,11 +11,11 @@ router.post('/buy', ensureAuth,async(req,res)=>{
   const user = req.user
   const buyingPower = req.user.buyingPower
   const total = req.body.total
+  const quantity = req.body.quantity
 
-  let stock = new Stock(req.body)
-  stock.user = user
+
   if(buyingPower<total || req.body.quantity>Number.MAX_SAFE_INTEGER){
-    return res.status(400).send()
+    return res.status(400).send("Not enough buying power")
 
   }
   try{
@@ -23,11 +23,16 @@ router.post('/buy', ensureAuth,async(req,res)=>{
     const currentStock = await Stock.findOne({user:req.user, ticker:ticker})
     if(currentStock){
       console.log(currentStock)
-      currentStock.quantity += req.body.quantity
-      currentStock.total += req.body.total
-      currentStock.save(a)
+      currentStock.quantity += quantity
+      currentStock.total += total
+      currentStock.save()
     }else{
-      stock.save()
+      const newStock = await Stock.create({
+        ticker: ticker,
+        total : total,
+        quantity: quantity,
+        user: user
+      })
     }
     
     user.buyingPower -= total
@@ -41,7 +46,7 @@ router.post('/buy', ensureAuth,async(req,res)=>{
   
 })
 
-router.patch('/sell', ensureAuth, async(req,res)=>{
+router.post('/sell', ensureAuth, async(req,res)=>{
   const user = req.user
   
   try{
@@ -64,6 +69,7 @@ router.patch('/sell', ensureAuth, async(req,res)=>{
     res.send()
     
   }catch(err){
+    console.log(err)
     res.status(400).send()
 
   }

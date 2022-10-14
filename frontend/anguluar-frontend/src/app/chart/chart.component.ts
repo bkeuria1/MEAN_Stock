@@ -23,12 +23,11 @@ export class ChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateChart(this.ticker,this.timeFrame)
-
   }
   ngOnChanges(changes: SimpleChanges): void {
+    if(this.ticker) this.getCurrentPrice()
     this.generateChart(this.ticker,this.timeFrame)
   }
-  
   getChartData(){
     return this.stockService.getChartData(this.ticker,this.timeFrame)
   }
@@ -58,7 +57,6 @@ export class ChartComponent implements OnInit {
    
   }
   generateChart(ticker:string,newTime:string){
-    console.log(`The ticker is ${this.ticker}`)
     this.timeFrame = newTime
     let dates: Array<any>
     let price: Array<number>
@@ -74,15 +72,13 @@ export class ChartComponent implements OnInit {
           {}
         )
         dates = Object.keys(chartData)
-        console.log(dates)
         price = Object.keys(chartData).map(key => chartData[key].close)
-        console.log(price)
         this.createChart(dates,price)
         
       })
 
     }else{
-      console.log("No stock found")
+
       let UserBalance : Array<UserBalance>
       this.getUserBalance().subscribe(result=>{
         UserBalance = result

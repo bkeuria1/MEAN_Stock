@@ -3,19 +3,12 @@
     <button class = "btn btn-primary" type = "submit" [disabled]="!ticker">Search</button>
     
 </form>
-<div *ngFor = "let suggestion of suggestions | async">
-    <div class = "card" (click) = "finalTicker = suggestion.Symbol">
-        <p>{{suggestion.Name}}-{{suggestion.Symbol}}</p>
+<div *ngIf = "showSuggestions">
+    <div *ngFor = "let suggestion of suggestions | async">
+        <div class = "card" (click) = "finalTicker = suggestion.Symbol">
+            <p>{{suggestion.Name}}-{{suggestion.Symbol}}</p>
+        </div>
     </div>
-
 </div>
 <app-chart [ticker] = "finalTicker"></app-chart>
-    <div *ngIf ="finalTicker">
-        <div class = "row card-body">
-            <div>
-                <!-- <app-buy-sell-form  [ticker] = "finalTicker" [currentPrice] = "price"></app-buy-sell-form> -->
-                
-            </div>    
-        </div>   
-        <ng-template #not_valid>No data found for ticker {{finalTicker}}</ng-template>
-    </div>
+

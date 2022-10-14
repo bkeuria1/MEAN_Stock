@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { StockServiceService } from '../services/stock-service.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -13,12 +13,18 @@ export class SearchFormComponent implements OnInit {
   ticker:string=''
   finalTicker:string = ''
   suggestions?:Observable<Array<Suggestion>>
+  showSuggestions:boolean = true
 
   constructor(private stockService: StockServiceService) { }
 
   ngOnInit(): void {
+    this.stockService.changeMessage$.subscribe((newTicker)=>{
+      this.ticker = newTicker
+      this.searchStock(this.ticker)
+    })
   }
   searchStock(ticker:string){
+    this.showSuggestions = false
     this.finalTicker = ticker
     try{
       this.currentPrice = this.stockService.getCurrentStockPrice(ticker)
@@ -27,9 +33,14 @@ export class SearchFormComponent implements OnInit {
     }
   }
   getSuggestions(query:string){
+    this.showSuggestions = true
     this.suggestions = this.stockService.getStockSuggestion(query)
     console.log("Get suggestions called")
   
+  }
+  ngOnChanges(change:SimpleChanges){
+    console.log("Simple Changes called")
+    this.searchStock(this.ticker)
   }
  
 

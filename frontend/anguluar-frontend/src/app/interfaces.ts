@@ -16,7 +16,7 @@ export interface User{
 }
 
 export interface Stock{
-    ticker: String
+    ticker: string
     quantity: number
     total:number
     price:number
@@ -38,4 +38,11 @@ export interface ChartData{
 export interface UserBalance{
     date:Date
     balance:number
+}
+export interface BuyingPower{
+    buyingPower: number
+}
+export interface UserStockTable {
+    table: Array<Stock>
+    totalAssets: number
 }

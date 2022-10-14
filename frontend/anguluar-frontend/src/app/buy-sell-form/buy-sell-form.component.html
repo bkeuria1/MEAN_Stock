@@ -1,6 +1,6 @@
 <form #sharesForm = "ngForm">
     <input type="number" min="0" name="shares" class="formControl" [(ngModel)] = "shares">
-    <button class = "btn btn-primary">Buy</button>
-    <button class = "btn btn-danger" [disabled]="!ownsStock">Sell</button>
+    <button class = "btn btn-primary" (click) = "makePurchase('Buy')">Buy</button>
+    <button class = "btn btn-danger" (click) = "makePurchase('Sell')" [disabled]="!ownsStock">Sell</button>
     <p>Total: {{shares*currentPrice}}</p>
 </form>
