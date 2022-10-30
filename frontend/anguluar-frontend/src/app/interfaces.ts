@@ -46,3 +46,14 @@ export interface UserStockTable {
     table: Array<Stock>
     totalAssets: number
 }
+interface NewsEntities{
+    title:string
+    description:string
+    url:string
+    image_url:string
+    published_at:Date
+    source:string
+}
+export interface News{
+    data:NewsEntities[]
+}

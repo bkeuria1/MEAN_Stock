@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpParams } from '@angular/common/http';
 import { Observable,of, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { BuyingPower, ChartData, Stock, Suggestion, UserBalance, UserStockTable } from '../interfaces';
+import { BuyingPower, ChartData, News, Stock, Suggestion, UserBalance, UserStockTable } from '../interfaces';
 @Injectable({
   providedIn: 'root'
 })
@@ -37,6 +37,9 @@ export class StockServiceService {
   getUserBuyingPower(){
     //this._tradeMessageSource.next(this.getUserStocks)
     return this.http.get(environment.BUYING_POWER_URL, {withCredentials:true}) as Observable<BuyingPower>
+  }
+  getStockNews(ticker?:string){
+    return this.http.get(`${environment.NEWS_URL}?stock=${ticker}`,{withCredentials:true}) as Observable<News>
   }
   refresh(){
     this._tradeMessageSource.next()

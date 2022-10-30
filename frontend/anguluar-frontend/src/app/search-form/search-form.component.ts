@@ -35,13 +35,6 @@ export class SearchFormComponent implements OnInit {
   getSuggestions(query:string){
     this.showSuggestions = true
     this.suggestions = this.stockService.getStockSuggestion(query)
-    console.log("Get suggestions called")
   
   }
-  ngOnChanges(change:SimpleChanges){
-    console.log("Simple Changes called")
-    this.searchStock(this.ticker)
-  }
- 
-
 }

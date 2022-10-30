@@ -20,6 +20,7 @@ export class BalanceInfoComponent implements OnInit {
     this.getBuyingPower()
     this.stockService.tradeMessage$.subscribe(()=>{
       this.getBuyingPower()
+      console.log("Hey buying power sub")
     })
   }
   getUserBalance(){

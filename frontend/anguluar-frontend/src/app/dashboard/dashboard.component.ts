@@ -15,7 +15,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getUserStocks()
     this.stockService.tradeMessage$.subscribe(()=>{
-      console.log("Subscription called")
       this.getUserStocks()
     })
   }

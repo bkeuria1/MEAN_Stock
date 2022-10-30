@@ -4,3 +4,7 @@
     <button class = "btn btn-danger" (click) = "makePurchase('Sell')" [disabled]="!ownsStock">Sell</button>
     <p>Total: {{shares*currentPrice}}</p>
 </form>
+<div *ngIf ="alertVisible" [ngClass]="alertClass" role="alert">
+    {{alertMessage}}
+</div>
+  

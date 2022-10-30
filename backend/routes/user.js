@@ -8,6 +8,7 @@ require('../passport.js')
 
 const {ensureAuth} = require('../middleware/ensureAuth');
 const stock = require('../models/stock');
+const { response } = require('express');
 
 const options = {
     headers: {
@@ -73,8 +74,6 @@ router.get('/balance',ensureAuth,async(req,res)=>{
         
         return res.send(balance.slice(timeFrame))
     }catch(err){
-        console.log("There is an error caught in the endpoint")
-        console.log(err)
         return res.status(400).send()
     }
 })
@@ -93,11 +92,9 @@ router.delete('/delete',ensureAuth,async(req,res)=>{
 router.get('/ownsStock',ensureAuth,async (req,res)=>{
     try{
         const ticker = req.query.ticker
+       
         const userStocks = await Stock.findOne({'user':req.user, 'ticker': ticker}, {"_id":0,"ticker":1})
-        if(userStocks){
-            return res.send(true).status(200)
-        }
-        return res.send(false).status(200)
+        res.send(userStocks !== null).status(200)
     }catch(err){
         res.send(err).status(400)
     }

@@ -11,6 +11,8 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { FormsModule } from '@angular/forms';
 import { ChartComponent } from './chart/chart.component';
 import { BalanceInfoComponent } from './balance-info/balance-info.component';
+import { NewsComponent } from './news/news.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { BalanceInfoComponent } from './balance-info/balance-info.component';
     BuySellFormComponent,
     SearchFormComponent,
     ChartComponent,
-    BalanceInfoComponent
+    BalanceInfoComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,

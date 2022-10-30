@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ChartData, UserBalance } from '../interfaces';
 import { StockServiceService } from '../services/stock-service.service';
 import Chart from 'chart.js/auto';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -11,18 +12,22 @@ import Chart from 'chart.js/auto';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
+  @Input()
+  ticker!:string
   chartData!: ChartData
   dates!:Array<Date>
   price!:Array<number>
-  @Input()ticker!:string
   currentPrice!:Observable<number>
   timeFrame:string ='1D'
   chart!: any;
 
-  constructor(private stockService: StockServiceService) { }
+  constructor(private stockService: StockServiceService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.generateChart(this.ticker,this.timeFrame)
+    this.route.paramMap.subscribe(paramMap =>{
+      this.ticker = paramMap.get('ticker') || ''
+      this.generateChart(this.ticker,this.timeFrame)
+     })
   }
   ngOnChanges(changes: SimpleChanges): void {
     if(this.ticker) this.getCurrentPrice()

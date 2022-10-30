@@ -1,14 +1,14 @@
-<form #searchForm = "ngForm" (ngSubmit) = "searchStock(searchForm.value.ticker)"  class = "d-flex justify-content-center">
+<form #searchForm = "ngForm" (ngSubmit) = "searchStock(ticker)"  class = "d-flex justify-content-center">
     <input name = "ticker" class="formControl" [(ngModel)] = "ticker" (ngModelChange) = "getSuggestions(ticker)">
     <button class = "btn btn-primary" type = "submit" [disabled]="!ticker">Search</button>
     
 </form>
 <div *ngIf = "showSuggestions">
     <div *ngFor = "let suggestion of suggestions | async">
-        <div class = "card" (click) = "finalTicker = suggestion.Symbol">
+        <div class = "card" (click) = "searchStock(suggestion.Symbol)">
             <p>{{suggestion.Name}}-{{suggestion.Symbol}}</p>
         </div>
     </div>
 </div>
 <app-chart [ticker] = "finalTicker"></app-chart>
-
+<app-news [ticker] = "finalTicker"></app-news>
