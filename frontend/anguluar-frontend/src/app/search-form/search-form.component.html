@@ -1,7 +1,6 @@
 <form #searchForm = "ngForm" (ngSubmit) = "searchStock(ticker)"  class = "d-flex justify-content-center">
     <input name = "ticker" class="formControl" [(ngModel)] = "ticker" (ngModelChange) = "getSuggestions(ticker)">
     <button class = "btn btn-primary" type = "submit" [disabled]="!ticker">Search</button>
-    
 </form>
 <div *ngIf = "showSuggestions">
     <div *ngFor = "let suggestion of suggestions | async">
@@ -10,5 +9,18 @@
         </div>
     </div>
 </div>
-<app-chart [ticker] = "finalTicker"></app-chart>
-<app-news [ticker] = "finalTicker"></app-news>
+<ul ngbNav #nav="ngbNav" class="nav-tabs" [destroyOnHide]="false">
+    <li ngbNavItem>
+      <a ngbNavLink>Chart</a>
+      <ng-template ngbNavContent>
+        <app-chart [ticker] = "finalTicker"></app-chart>
+    </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>News</a>
+      <ng-template ngbNavContent>
+        <app-news [ticker] = "finalTicker"></app-news>
+    </ng-template>
+    </li>
+</ul>
+<div [ngbNavOutlet]="nav"></div>

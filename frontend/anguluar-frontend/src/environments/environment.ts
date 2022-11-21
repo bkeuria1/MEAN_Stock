@@ -19,7 +19,8 @@ export const environment = {
   BUY_URL :"http://localhost:3001/sale/buy",
   MAIL_URL :"http://localhost:3001/mail/sale",
   USER_URL:"http://localhost:3001/user/current",
-  OWNS_STOCK_URL: "http://localhost:3001/user/ownsStock"
+  OWNS_STOCK_URL: "http://localhost:3001/user/ownsStock",
+  EXCEL_DOWNLOAD_URL:  "http://localhost:3001/excel/downloadTable"
 };
 
 /*

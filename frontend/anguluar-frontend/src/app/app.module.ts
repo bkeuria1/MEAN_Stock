@@ -13,26 +13,32 @@ import { ChartComponent } from './chart/chart.component';
 import { BalanceInfoComponent } from './balance-info/balance-info.component';
 import { NewsComponent } from './news/news.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    SearchFormComponent,
     DashboardComponent,
     StockTableComponent,
     BuySellFormComponent,
-    SearchFormComponent,
     ChartComponent,
     BalanceInfoComponent,
     NewsComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule,
+    NgbModule,
+    FontAwesomeModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

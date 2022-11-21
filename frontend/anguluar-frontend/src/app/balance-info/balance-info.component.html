@@ -1,10 +1,13 @@
 <div class = "card">
-    <button class = 'btn btn-primary col-md-3'>Refresh</button>
+    <button (click)="refresh()" class = 'btn btn-primary col-md-3'>
+        <fa-icon [icon]="faRotateRight"></fa-icon>
+        Refresh
+    </button>
     <div class = "text">
         <h1>Balance Summary</h1>
-        <p>Total Gains/Loses: {{(buyingPower + userStocks.totalAssets) - 1000000}}</p>
-        <p>Total Assest:{{userStocks.totalAssets}}</p>
-        <p>Buying Power: {{buyingPower}}</p>
-        <p>Balance: {{buyingPower + userStocks.totalAssets}}</p>
+        <p>Total Gains/Loses: {{(buyingPower + userStocks.totalAssets - 1000000) | currency:'USD' }}</p>
+        <p>Total Assest:{{userStocks.totalAssets | currency:'USD'}}</p>
+        <p>Buying Power: {{buyingPower | currency:'USD'}}</p>
+        <p>Balance: {{buyingPower + userStocks.totalAssets | currency:'USD'}}</p>
     </div>
 </div>

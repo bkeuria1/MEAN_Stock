@@ -12,10 +12,7 @@ const authRouter = require('./routes/auth')
 const userRouter = require('./routes/user')
 const stockRouter = require('./routes/stock')
 const mailRouter = require('./routes/mail')
-// const calculateBalance =  require('./balanceCron.js')
-
 require('./passport')(passport)
-let whitelist = ['http://localhost:3000','https://stock-market-simulator-mernapp.herokuapp.com']
 
 let corsOptions = {
   origin: 'http://localhost:3000',
@@ -53,7 +50,7 @@ app.use('/auth', authRouter)
 app.use('/sale', saleRouter)
 app.use('/user', userRouter)
 app.use('/stock',stockRouter)
-app.use('/mail',mailRouter)
+app.use('/mail', mailRouter)
 
 if(process.env.NODE_ENV === 'production'){
   console.log("Here is the balance_cron   " + process.env.BALANCE_CRON)

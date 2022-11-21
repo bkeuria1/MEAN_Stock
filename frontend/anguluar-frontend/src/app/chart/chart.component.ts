@@ -4,7 +4,7 @@ import { ChartData, UserBalance } from '../interfaces';
 import { StockServiceService } from '../services/stock-service.service';
 import Chart from 'chart.js/auto';
 import { ActivatedRoute } from '@angular/router';
-
+import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-chart',
@@ -18,20 +18,18 @@ export class ChartComponent implements OnInit {
   dates!:Array<Date>
   price!:Array<number>
   currentPrice!:Observable<number>
-  timeFrame:string ='1D'
+  timeFrame:string ='MAX'
   chart!: any;
+  faRotateRight = faRotateRight
 
   constructor(private stockService: StockServiceService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(paramMap =>{
-      this.ticker = paramMap.get('ticker') || ''
-      this.generateChart(this.ticker,this.timeFrame)
-     })
+    
   }
   ngOnChanges(changes: SimpleChanges): void {
     if(this.ticker) this.getCurrentPrice()
-    this.generateChart(this.ticker,this.timeFrame)
+    this.generateChart(this.timeFrame)
   }
   getChartData(){
     return this.stockService.getChartData(this.ticker,this.timeFrame)
@@ -61,7 +59,7 @@ export class ChartComponent implements OnInit {
     }); 
    
   }
-  generateChart(ticker:string,newTime:string){
+  generateChart(newTime:string){
     this.timeFrame = newTime
     let dates: Array<any>
     let price: Array<number>
@@ -76,6 +74,7 @@ export class ChartComponent implements OnInit {
           },
           {}
         )
+        console.log(chartData)
         dates = Object.keys(chartData)
         price = Object.keys(chartData).map(key => chartData[key].close)
         this.createChart(dates,price)
@@ -94,5 +93,12 @@ export class ChartComponent implements OnInit {
       })
 
     } 
+  }
+
+  refresh(){
+    this.getCurrentPrice()
+    if(this.timeFrame == "1D"){
+      this.generateChart("1D")
+    }
   }
 }

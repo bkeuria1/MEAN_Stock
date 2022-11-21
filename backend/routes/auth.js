@@ -2,8 +2,6 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router()
 const User = require('../models/user')
-require('../passport.js')
-
 const {ensureAuth} = require('../middleware/ensureAuth')
 
 router.get('/failed', ensureAuth,(req, res) => {

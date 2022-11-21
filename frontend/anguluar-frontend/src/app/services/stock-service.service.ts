@@ -38,8 +38,11 @@ export class StockServiceService {
     //this._tradeMessageSource.next(this.getUserStocks)
     return this.http.get(environment.BUYING_POWER_URL, {withCredentials:true}) as Observable<BuyingPower>
   }
-  getStockNews(ticker?:string){
+  getStockNews(ticker:string){
     return this.http.get(`${environment.NEWS_URL}?stock=${ticker}`,{withCredentials:true}) as Observable<News>
+  }
+  downloadTable(table?:Array<Stock>){
+    return this.http.post(environment.EXCEL_DOWNLOAD_URL,{"table":table},{withCredentials:true}) as Observable<any>
   }
   refresh(){
     this._tradeMessageSource.next()

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserStockTable } from '../interfaces';
+import { environment } from 'src/environments/environment';
+import { User, UserStockTable } from '../interfaces';
 import { StockServiceService } from '../services/stock-service.service';
 import { StockTableComponent } from '../stock-table/stock-table.component';
 @Component({
@@ -9,6 +10,8 @@ import { StockTableComponent } from '../stock-table/stock-table.component';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  @Input()
+  user!:User
   userStocks! : UserStockTable
   constructor(private stockService:StockServiceService) { }
 
@@ -23,6 +26,9 @@ export class DashboardComponent implements OnInit {
     return this.stockService.getUserStocks().subscribe(result=>{
       this.userStocks = result
     })
+  }
+  signOut(){
+    window.location.href = environment.SIGN_OUT_URL
   }
     
 

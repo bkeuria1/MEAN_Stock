@@ -1,3 +1,10 @@
 .info{
-    padding-top: 2rem;
+    margin: 5rem;
+}
+.center{
+    margin: 0 auto;
+}
+
+.navbg{
+    background-color: purple;
 }

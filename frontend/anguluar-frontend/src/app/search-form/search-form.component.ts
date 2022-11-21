@@ -2,6 +2,7 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { StockServiceService } from '../services/stock-service.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { ChartComponent } from '../chart/chart.component';
 import { Suggestion } from '../interfaces';
 @Component({
   selector: 'app-search-form',

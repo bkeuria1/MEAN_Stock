@@ -1,11 +1,22 @@
 <div class = "card" >
-    <div class = "card-body">
-        <h1>{{ticker | uppercase}}</h1>
-        <div *ngIf = "currentPrice | async as price">
-            <p>{{price}}</p>
-            <app-buy-sell-form [ticker]="ticker" [currentPrice]="price"></app-buy-sell-form>
+    <div class = "card-body p-3">
+        <div class = "container" *ngIf = "currentPrice | async as price">
+            <div class = "row">
+                <div class = "col-md-3">
+                    <button (click)="refresh()" class = 'btn btn-primary'>
+                        <fa-icon [icon]="faRotateRight"></fa-icon>
+                        Refresh
+                    </button>
+                </div>
+                <div class = "col-md-9 float-right">
+                    <h1>{{ticker | uppercase}}</h1>
+                    <p>Current Price: {{price}}</p>
+                    <app-buy-sell-form [ticker]="ticker" [currentPrice]="price"></app-buy-sell-form>
+                </div>
+            </div>
         </div>
-        <select class="form-select"  [(ngModel)]="timeFrame" (ngModelChange)="generateChart(ticker,timeFrame)">
+    
+        <select class="form-select"  [(ngModel)]="timeFrame" (ngModelChange)="generateChart(timeFrame)">
             <option selected value = "1D">1D</option>
             <option value="5D">5D</option>
             <option value="1M">1M</option>
@@ -19,3 +30,4 @@
         </div>
     </div>
 </div>
+
