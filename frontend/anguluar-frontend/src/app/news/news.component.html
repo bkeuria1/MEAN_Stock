@@ -1,11 +1,13 @@
-<div *ngFor = "let newsArticle of (news | async)?.data">
+<div class = "scroll">
+    <div *ngFor = "let newsArticle of (news | async)?.data">
 
-    <div class = "card p-2 m-3">
-        <p>{{newsArticle.published_at | date: 'MM/dd/yyyy'}}</p>
-        <h1>{{newsArticle.title}}</h1>
-        <p>{{newsArticle.description}}</p>
-        <a href = {{newsArticle.url}}></a>
-        <img class="img-fluid" src={{newsArticle.image_url}} />
+        <div class = "card p-2 m-3">
+            <p>{{newsArticle.published_at | date: 'MM/dd/yyyy'}}</p>
+            <h1>{{newsArticle.title}}</h1>
+            <p>{{newsArticle.description}}</p>
+            <a href = {{newsArticle.url}}></a>
+            <img class="width img-fluid img-thumbnail" src={{newsArticle.image_url}} />
+        </div>
+
     </div>
-
 </div>

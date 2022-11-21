@@ -1,0 +1,8 @@
+.scroll{
+    height: 38rem;
+    overflow-y: scroll;
+}
+.width{
+    width: 50%;
+    height: 30vh;
+}

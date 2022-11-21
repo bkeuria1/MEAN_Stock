@@ -1,21 +1,23 @@
 <button (click) = "download()" class = "btn btn-success m-2">Save Table to Excel</button>
-<table id = "table" class = "table table-strip table-hover" #table >
-    <thead>
-        <th>Ticker</th>
-        <th>Shares</th>
-        <th>Total</th>
-        <th>Average Purchase Price</th>
-        <th>Current Price</th>
-        <th>Gains</th>
-    </thead>
-    <tbody>
-        <tr (click)="setStock(stock.ticker)" *ngFor = "let stock of userStocks?.table">
-            <td name = "Ticker">{{stock.ticker}}</td>
-            <td>{{stock.quantity}}</td>
-            <td>{{stock.total | currency:'USD'}}</td>
-            <td>{{stock.total/stock.quantity | currency:'USD'}}</td>
-            <td>{{stock.price | currency:'USD'}}</td>
-            <td>{{stock.price*stock.quantity - stock.total | currency:'USD'}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class = "scrollClass">
+    <table id = "table" class = "table table-strip table-hover" #table >
+        <thead>
+            <th>Ticker</th>
+            <th>Shares</th>
+            <th>Total</th>
+            <th>Average Purchase Price</th>
+            <th>Current Price</th>
+            <th>Gains</th>
+        </thead>
+        <tbody>
+            <tr (click)="setStock(stock.ticker)" *ngFor = "let stock of userStocks?.table">
+                <td name = "Ticker">{{stock.ticker}}</td>
+                <td>{{stock.quantity}}</td>
+                <td>{{stock.total | currency:'USD'}}</td>
+                <td>{{stock.total/stock.quantity | currency:'USD'}}</td>
+                <td>{{stock.price | currency:'USD'}}</td>
+                <td>{{stock.price*stock.quantity - stock.total | currency:'USD'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
