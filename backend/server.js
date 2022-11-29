@@ -31,7 +31,6 @@ db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(cookie())
 app.use(session({
   secret: "secret",
   resave: false,
@@ -42,7 +41,6 @@ app.use(session({
     collection: 'sessions'
    })
 }));
-//Configure Passport
 app.use(logger('tiny'))
 app.use(passport.initialize());
 app.use(passport.session());

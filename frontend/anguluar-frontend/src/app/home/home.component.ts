@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { SignInServiceService } from '../services/sign-in-service.service';
+import { AuthService } from '../services/auth.service';
 
 import { User } from '../interfaces';
 @Component({
@@ -10,25 +10,41 @@ import { User } from '../interfaces';
 })
 export class HomeComponent implements OnInit {
   user?:User;
+  email:String = ''
+  password: String = ''
+  confirmPassword:String = ''
 
-  constructor(private sign_in: SignInServiceService) { }
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.checkSignIn()
   }
 
-  signIn(): void{
+  signInWithGoogle(): void{
     window.open(environment.SIGN_IN_URL,"_self")
     this.checkSignIn()
   }
 
   checkSignIn(){
-    let results = this.sign_in.checkSignIn().subscribe(response => {
+    let results = this.authService.checkSignIn().subscribe(response => {
       this.user = response
-    })
-      
-  
-    
+    }) 
   }
+
+  signInLocal(){
+    console.log("sing in local called")
+    this.authService.signInLocal(this.email, this.password).subscribe(()=>{
+      this.checkSignIn()
+    })
+  
+  }
+
+  register(){
+    this.authService.register(this.email, this.password, this.confirmPassword).subscribe(()=>{
+      this.checkSignIn()
+    })
+  }
+
 
 }

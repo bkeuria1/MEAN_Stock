@@ -8,6 +8,8 @@ export const environment = {
   SIGN_OUT_URL :"http://localhost:3001/auth/logout",
   RESET_PROFILE_URL :"http://localhost:3001/user/reset",
   LOGGEDIN_URL :"http://localhost:3001/auth/loggedIn",
+  REGISTER_URL: "http://localhost:3001/auth/register",
+  SIGN_IN_LOCAL_URL : "http://localhost:3001/auth/local",
   BUYING_POWER_URL :"http://localhost:3001/user/buyingPower",
   USERSTOCK_URL :"http://localhost:3001/stock/userStocks",
   REALTIME_URL :"http://localhost:3001/stock/realtimePrice",

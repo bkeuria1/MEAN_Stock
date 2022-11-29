@@ -12,12 +12,10 @@ module.exports = {
         try{
           const currentStock = await Stock.findOne({user:req.user, ticker: req.body.ticker})
           if(currentStock){
-            console.log(currentStock)
             currentStock.quantity += quantity
             currentStock.total += total
             currentStock.save()
           }else{
-            console.log("heres the new ticker "+ticker)
             await Stock.create({
               ticker: ticker,
               total : total,

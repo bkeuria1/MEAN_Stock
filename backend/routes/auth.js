@@ -2,11 +2,17 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router()
 const User = require('../models/user')
-const {ensureAuth} = require('../middleware/ensureAuth')
+const {ensureAuth} = require('../middleware/ensureAuth');
+const { register, singInLocal,failed } = require('../controllers/AuthController');
 
-router.get('/failed', ensureAuth,(req, res) => {
-  res.send('<h1>Log in Failed :(</h1>')
-});
+router.post('/register', register)
+router.post('/local', passport.authenticate('local'
+, { 
+  failureRedirect: '/failed' }
+),(req,res)=>{
+    res.status(201).send({"user": "User Created"})
+})
+router.get('/failed', failed)
 
 router.get('/loggedIn', (req,res)=>{
   res.send({result: req.isAuthenticated()})

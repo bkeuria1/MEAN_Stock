@@ -2,7 +2,68 @@
     <app-dashboard [user] = "user"></app-dashboard>
 </div>
 <ng-template #sign_in_button>
-    <button class = "btn btn-primary" (click) = signIn() >Sign In</button>
+  <div>
+  <h1>Welcome to the Stock Market Simulator!</h1>
+    <div class = "container mt-3">
+        <div class = "card">
+            <div class = "row">
+                <div class = "col-md-3 card">
+                    <div>
+                      <button (click) = "signInWithGoogle()" class = "btn btn-primary m-3">Sign In With Google</button>
+                    </div>
+                    <div>
+                      <button class = "btn btn-primary m-3">Sign In With Facebook</button>
+                    </div>
+                </div>
+                <div class = "col-md-6 p-4">
+                
+            
+            <ul ngbNav #nav="ngbNav" class="nav-tabs " [destroyOnHide]="false">
+                <li ngbNavItem>
+                    <a ngbNavLink>Sign In</a>
+                    <ng-template ngbNavContent>
+                        <form>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Email address</label>
+                              <input type="email" name = "email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)] = "email" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Password</label>
+                              <input type="password" class="form-control" name ="password"  [(ngModel)] = "password" placeholder="Password">
+                            </div>
+                            <button type="submit" (click) = "signInLocal()" class="btn btn-primary">Submit</button>
+                          </form>
+                    </ng-template>
+                </li>
+                <li ngbNavItem>
+                    <a ngbNavLink>Register</a>
+                    <ng-template ngbNavContent>
+                        <div class="form-group">
+                            <form>
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" name = "email" [(ngModel)]= "email"placeholder="Enter email">
+            
+                          <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" name = "password" [(ngModel)]= "password" placeholder="Password">
+                          </div>
+                          <div class="form-group">
+                            <label>Re-enter Password </label>
+                            <input type="password"  name = "confirmPassword" [(ngModel)]= "confirmPassword"  class="form-control" placeholder="Password">
+                          </div>
+                          <button type="submit" (click) = "register()" class="btn btn-primary">Submit</button>
+                        </form>
+                        </div>
+                    </ng-template>
+                </li>
+            </ul>
+        
+            <div [ngbNavOutlet]="nav"></div>
+        </div>
+        </div>
+    </div>
+    </div>
+  </div>
 </ng-template>
 
 

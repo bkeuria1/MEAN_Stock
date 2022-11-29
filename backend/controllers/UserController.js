@@ -35,7 +35,7 @@ module.exports = {
             let timeFrame = req.query.timeFrame
             switch(timeFrame){
                 case('1D'):
-                    timeFrame = -1
+                    timeFrame = -2
                     break
                 case('5D'):
                     timeFrame = -5
