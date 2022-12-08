@@ -29,7 +29,7 @@ async function calculateBalance(){
     
         console.log(allUsers.length)
         for(const user of allUsers){
-            console.log("The user is "+ user.displayName)
+            console.log("The user is "+ user.email)
             let totalAssets = 0
             const buyingPower = user.buyingPower
             let userStocks = await Stock.find({user:user})

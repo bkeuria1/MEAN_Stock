@@ -8,11 +8,13 @@ module.exports = {
     },
 
     async loggedIn(req,res){
+        console.log("Hey" + req.session)
         res.send({result: req.isAuthenticated()})
     },
 
     logout(req,res){
         try{
+            console.log("Here is the session" + req.session)
             req.logout();
             res.redirect(process.env.HOME_URL)
         }
@@ -27,7 +29,7 @@ module.exports = {
         }
         const user = await User.findOne({email:email})
         if(user){
-            return res.status(500).send({"message":"An account with this email already exists"})
+            return res. status(500).send({"message":"An account with this email already exists"})
         }else{
             const salt = await bcrypt.genSalt(10)
             const hashedPassword = await bcrypt.hash(password, salt)

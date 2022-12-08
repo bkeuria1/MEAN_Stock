@@ -1,5 +1,6 @@
 module.exports = {
     current(req,res){
+        console.log("Hey" + req.sessionID)
         try{
             res.status(200).send(req.user)
         }catch(err){
