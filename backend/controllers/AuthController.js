@@ -22,6 +22,7 @@ module.exports = {
             res.redirect(process.env.HOME_URL)
         }
     },
+
     async register(req,res){
         const {email,password,confirmPassword} = req.body
         if(confirmPassword !== password){
@@ -40,7 +41,7 @@ module.exports = {
 
                 })
                 passport.authenticate('local')(req, res, function () {
-                    res.status(201).send({'user':'user'});
+                    res.status(201).send({'user': user});
                 });
                 
             }catch(err){
@@ -49,5 +50,4 @@ module.exports = {
         
         }
     },
-
 }

@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
 
   signInWithGoogle(): void{
     window.open(environment.SIGN_IN_URL,"_self")
-    this.checkSignIn()
   }
 
   checkSignIn(){

@@ -26,18 +26,20 @@ export interface Suggestion{
     Name:string
     Symbol: string
 }
-interface DayData{
-    close:number
-    volume:number
-    low:number
-    high:number
-}
+
 export interface ChartData{
-  [key: string]:DayData
+    date: string,
+    price: number
+    
 } 
 export interface UserBalance{
     date:Date
     balance:number
+}
+
+export interface PriceData{
+    price: number,
+    ticker: string
 }
 export interface BuyingPower{
     buyingPower: number

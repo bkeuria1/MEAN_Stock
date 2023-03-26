@@ -2,34 +2,67 @@ const passport = require('passport');
 const axios = require('axios')
 const User = require('../models/user')
 const Stock = require('../models/stock')
-const Symbols = require('../models/symbol')
+const Symbols = require('../models/symbol');
 const options = {
     headers: {
         'X-API-KEY': process.env.YF_API_KEY
-    }
+    } 
 };
+async function getCurrentPrice(ticker){
+    const url = `https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${ticker}`
+    const apiResult = await axios.get(url,options)
+    return apiResult.data.quoteResponse.result[0].ask
+}
 module.exports = {
     async chart(req,res){
-        const url = `https://alpha.financeapi.net/symbol/get-chart?period=${req.query.timeFrame.toLowerCase()}&symbol=${req.query.stock}`
+        
+        let {ticker, timeFrame} = req.query
+        let url = `https://yfapi.net/v8/finance/chart/${ticker}?range=${timeFrame}&interval=1d`
+    
+        switch(timeFrame){
+            case('1D'):
+                timeFrame = "1d"
+                url = `https://yfapi.net/v8/finance/chart/${ticker}?range=${timeFrame}`
+                break
+            case('5D'):
+                timeFrame = "5d"
+                break;
+            case('1M'):
+                timeFrame = "1mo"
+                break;
+            case('3M'):
+                timeFrame = "3mo"
+                break
+            case('1Y'):
+                timeFrame = "1y"
+                break;
+        }
+      
         try{
             const results = await axios.get(url,options)
-            res.send(results.data.attributes)
+            let timestamp = results.data.chart.result[0].timestamp
+            let close = results.data.chart.result[0].indicators.quote[0].close
+            let combined = timestamp.map(function(date,index){
+                return {
+                    "date": new Date(date * 1000).toLocaleString("en-US"),
+                    "price": close[index]
+                }
+            })
+            res.send(combined)
         }catch(err){
             console.log(err)
             res.status(400).send()
         }
     },
 
-    async realTimePrice(req,res){
-        const url = `https://alpha.financeapi.net/market/get-realtime-prices?symbols=${req.query.stock}`
-        try{
-            const results = await axios.get(url,options) 
-            res.send((results.data.data[0].attributes.last.toString()))
-        }catch(err){
-            console.log(err)
-            res.status(400).send()
-        }
 
+    async realTimePrice(req,res){
+        if(req.query.ticker === ''){
+            return ""
+        }
+        let price = await getCurrentPrice(req.query.ticker)
+        res.send({"price": price, "ticker": req.query.ticker}).status(200)
+    
     },
 
     async news(req,res){
@@ -63,17 +96,17 @@ module.exports = {
             const userStocks = await Stock.find({user: req.user},{_id:0, __v:0, date:0,user:0})
             const stockWithPrices = JSON.parse(JSON.stringify(userStocks))
             const tickerString = userStocks.reduce((prev,currentStock)=>prev+currentStock.ticker+",", "")
-            const response = await axios.get(`https://alpha.financeapi.net/market/get-realtime-prices?symbols=${tickerString}`, options)
-            const currentPrices = response.data.data
+            const response = await axios.get(`https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${tickerString}`, options)
+            const currentPrices = response.data.quoteResponse.result
+            console.log(currentPrices)
             let totalAssets = 0
             stockWithPrices.forEach((stock,index)=>{
                 let shares = stock.quantity
-                let currentPrice = currentPrices[index].attributes.last
+                let currentPrice = currentPrices[index].bid
                 totalAssets += shares*currentPrice
                 stock.price = currentPrice
             })
             let currentBalance = totalAssets + req.user.buyingPower
-            console.log(stockWithPrices)
             res.send({table: stockWithPrices, totalAssets: totalAssets, currentBalance: currentBalance})
         }catch(err){
             console.log(err)
@@ -81,6 +114,7 @@ module.exports = {
 
         }
     },
+    
     
    
 }

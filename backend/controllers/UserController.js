@@ -1,3 +1,5 @@
+const User = require("../models/user");
+
 module.exports = {
     current(req,res){
         console.log("Hey" + req.sessionID)
@@ -6,6 +8,11 @@ module.exports = {
         }catch(err){
             return err;
         }
+    },
+
+    async allUser(req,res){
+        let user = await User.find({})
+        res.send(user)
     },
 
     async buyingPower(req,res){

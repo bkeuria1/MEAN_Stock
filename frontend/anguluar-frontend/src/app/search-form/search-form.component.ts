@@ -28,7 +28,7 @@ export class SearchFormComponent implements OnInit {
     this.showSuggestions = false
     this.finalTicker = ticker
     try{
-      this.currentPrice = this.stockService.getCurrentStockPrice(ticker)
+      // this.currentPrice = this.stockService.getCurrentStockPrice(ticker)
     }catch(err:any){
       console.log(err)
     }

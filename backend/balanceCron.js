@@ -38,10 +38,10 @@ async function calculateBalance(){
                 userStocks.forEach(stock =>{
                     queryString += `${stock.ticker}%2c`
                 })
-                const res = await axios.get(`https://alpha.financeapi.net/market/get-realtime-prices?symbols=${queryString}`,options)
-                for(const stock of res.data.data){
+                const res = await axios.get(`https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${queryString}`,options)
+                for(const stock of res.data.quoteResponse.result){
                     let ticker = new RegExp(`^${stock.id}`,'i')
-                    let currentPrice = stock.attributes.last
+                    let currentPrice = stock.ask
                     let stockDB = await Stock.findOne({ticker: ticker, user:user})
 
                     let stockAmount = (stockDB.total + (currentPrice*stockDB.quantity-stockDB.total))
