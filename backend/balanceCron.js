@@ -40,14 +40,15 @@ async function calculateBalance(){
                 })
                 const res = await axios.get(`https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${queryString}`,options)
                 for(const stock of res.data.quoteResponse.result){
-                    let ticker = new RegExp(`^${stock.id}`,'i')
+                    let ticker = stock.symbol
                     let currentPrice = stock.ask
                     let stockDB = await Stock.findOne({ticker: ticker, user:user})
-
-                    let stockAmount = (stockDB.total + (currentPrice*stockDB.quantity-stockDB.total))
-                    //console.log(`Heres the current price for ${stock.id}: ${currentPrice} with quantity of ${stockDB.quantity} and amount ${stockAmount}`)
-                    totalAssets += stockAmount
-                    console.log(totalAssets)
+                    if(stockDB){
+                        let stockAmount = (stockDB.total + (currentPrice*stockDB.quantity-stockDB.total))
+                        //console.log(`Heres the current price for ${stock.id}: ${currentPrice} with quantity of ${stockDB.quantity} and amount ${stockAmount}`)
+                        totalAssets += stockAmount
+                        console.log(totalAssets)
+                    }
                     
                 
                 }

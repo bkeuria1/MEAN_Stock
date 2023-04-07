@@ -22,7 +22,7 @@ export class ChartComponent implements OnInit {
   chart!: any;
   faRotateRight = faRotateRight
 
-  constructor(private stockService: StockServiceService, private route: ActivatedRoute) { }
+  constructor(private stockService: StockServiceService) { }
 
   ngOnInit(): void {
     
@@ -77,7 +77,8 @@ export class ChartComponent implements OnInit {
       })
 
     }else{
-
+      this.timeFrame = newTime.toUpperCase()
+      console.log("Getting user balance")
       let UserBalance : Array<UserBalance>
       this.getUserBalance().subscribe(result=>{
         UserBalance = result
